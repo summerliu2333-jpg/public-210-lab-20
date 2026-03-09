@@ -1,6 +1,8 @@
 //COMSC-210-5068, Lab 20, Yang Liu
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 const int SIZE = 3;
@@ -13,9 +15,11 @@ public:
     // constructors
     Chair() {
         prices = new double[SIZE];
-        legs = 0;
-        for (int i = 0; i < SIZE; i++)
-            prices[i] = 0;
+        legs = (rand() % 2) + 3; // Random 3 or 4 legs
+        const int MIN = 10000, MAX = 99999;
+        for (int i = 0; i < SIZE; i++) {
+            prices[i] = (rand() % (MAX - MIN + 1) + MIN) / (double) 100;
+        }
     }
     Chair(int l) {
         prices = new double[SIZE];
@@ -47,6 +51,11 @@ public:
         cout << endl << "Historical avg price: " << getAveragePrices();
         cout << endl << endl;
     }
+    //Destructor
+    ~Chair() {
+        delete[] prices;
+    }
+
 };
 
 int main() {
